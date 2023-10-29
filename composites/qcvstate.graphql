@@ -1,0 +1,67 @@
+type Blessing 
+@loadModel(id: "kjzl6hvfrbw6c82mkud4qs38zl4hd03ifoyg2ksvfjkhuxebfzh3ef89vwvtvrr")
+@createIndex(fields: [{ path: ["to"] }])
+{
+  author: DID! @documentAccount
+}
+
+type QCSpace 
+@loadModel(id: "kjzl6hvfrbw6c5eb8it147d1emzvibj25ozysyicfi6ox9h5n2099l3q80aqnzo")
+{
+	author: DID! @documentAccount
+#	items: [QCItem] @relationFrom(model: "QCItem", property: "spaceId")
+#	state: [QCState] @relationFrom(model: "QCState", property: "spaceId")
+}
+
+type QCItem @loadModel(id: "kjzl6hvfrbw6c8rxbl5p4gol8sj7xnplkdvsd3z8nl6s0j0ey79iw1hqsicjn74")
+@createIndex(fields: [{ path: ["spaceId"] }])
+{
+  author: DID! @documentAccount
+#	state: [QCItemState] @relationFrom(model: "QCItemState", property: "itemId")
+}
+
+
+type QCVotes @loadModel(id: "kjzl6hvfrbw6c7cd4mz8c05meajpl2mbjqxp4ddv1w8mksl0ro9m9ndxxe5x5ub")
+@createIndex(fields: [{ path: ["spaceId"] }])
+{
+  author: DID! @documentAccount
+}
+
+
+# State objects that are updated by a service
+
+type QCItemState @createModel(
+	accountRelation: LIST, 
+	description: "The state of a QCItem after tallying up votes"
+)
+@createIndex(fields: [{ path: ["itemId"] }])
+{
+  author: DID! @documentAccount
+	version: CommitID! @documentVersion
+  itemId: StreamID! @documentReference(model: "QCItem")
+  itemVersion: CommitID!
+  votes: [CommitID] @list(maxLength: 10000000) # References for QCVotes that are relevant for this itemId
+  y: Int!
+  i: Int!
+  triggered: DateTime
+}
+
+type Group {
+  prophet: DID!
+  blessings: [CommitID!] @list(maxLength: 10000000) # References for Blessings that are relevant for this prophet
+}
+
+type QCState @createModel(
+	accountRelation: LIST, 
+	description: "The state of a QCSpace"
+)
+@createIndex(fields: [{ path: ["spaceId"] }])
+{
+  author: DID! @documentAccount
+	version: CommitID! @documentVersion
+  spaceId: StreamID! @documentReference(model: "QCSpace")
+	spaceVersion: CommitID!
+  groups: [Group] @list(maxLength: 100)
+  U: Int!
+  i: Int!
+}

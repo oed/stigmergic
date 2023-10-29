@@ -1,0 +1,9 @@
+type Blessing 
+@loadModel(id: "kjzl6hvfrbw6c82mkud4qs38zl4hd03ifoyg2ksvfjkhuxebfzh3ef89vwvtvrr")
+@createIndex(fields: [{ path: ["to"] }])
+{
+#  author: DID! @documentAccount
+	version: CommitID! @documentVersion
+#  to: DID!
+#  text: String @string(maxLength: 240)
+}

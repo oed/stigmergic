@@ -1,0 +1,40 @@
+{
+  "name": "bless club",
+  "homepage": "https://bless.club",
+  "version": "0.1.0",
+  "license": "MIT",
+  "author": "Joel Thorstensson <joel@3box.io>",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "export": "next build && next export",
+    "start": "next start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/oed/bless-club"
+  },
+  "bugs": {
+    "url": "https://github.com/oed/bless-club/issues"
+  },
+  "dependencies": {
+    "@ceramicnetwork/http-client": "^2.32.0",
+    "@composedb/cli": "^0.5.2",
+    "@composedb/client": "^0.5.1",
+    "@didtools/pkh-ethereum": "^0.4.1",
+    "@web3modal/wagmi": "^3.0.1",
+    "bootstrap": "^5.3.2",
+    "copy-webpack-plugin": "^11.0.0",
+    "did-session": "^2.1.1",
+    "leaflet": "^1.9.4",
+    "next": "^13.4.19",
+    "react": "^18.2.0",
+    "react-bootstrap": "^2.9.0",
+    "react-dom": "^18.2.0",
+    "react-icons": "^4.10.1",
+    "react-leaflet": "^4.2.1",
+    "sass": "^1.66.1",
+    "viem": "^1.12.2",
+    "wagmi": "^1.4.2"
+  }
+}

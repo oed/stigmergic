@@ -1,0 +1,49 @@
+type Blessing 
+@loadModel(id: "kjzl6hvfrbw6c82mkud4qs38zl4hd03ifoyg2ksvfjkhuxebfzh3ef89vwvtvrr")
+@createIndex(fields: [{ path: ["to"] }])
+{
+  author: DID! @documentAccount
+	version: CommitID! @documentVersion
+}
+
+type QCSpace 
+@loadModel(id: "kjzl6hvfrbw6c5eb8it147d1emzvibj25ozysyicfi6ox9h5n2099l3q80aqnzo")
+{
+	author: DID! @documentAccount
+	version: CommitID! @documentVersion
+	items: [QCItem] @relationFrom(model: "QCItem", property: "spaceId")
+	state: [QCState] @relationFrom(model: "QCState", property: "spaceId")
+}
+
+type QCItem @loadModel(id: "kjzl6hvfrbw6c8rxbl5p4gol8sj7xnplkdvsd3z8nl6s0j0ey79iw1hqsicjn74")
+@createIndex(fields: [{ path: ["spaceId"] }])
+{
+  author: DID! @documentAccount
+	version: CommitID! @documentVersion
+	state: [QCItemState] @relationFrom(model: "QCItemState", property: "itemId")
+}
+
+
+type QCVotes @loadModel(id: "kjzl6hvfrbw6c7cd4mz8c05meajpl2mbjqxp4ddv1w8mksl0ro9m9ndxxe5x5ub")
+@createIndex(fields: [{ path: ["spaceId"] }])
+{
+  author: DID! @documentAccount
+	version: CommitID! @documentVersion
+}
+
+
+# State objects that are updated by a service
+
+type QCItemState @loadModel(id: "kjzl6hvfrbw6c6ccaz8206kp0en3vdlcdbdwshuhzxvengpty1e731x1cvsdcib")
+@createIndex(fields: [{ path: ["itemId"] }])
+{
+  author: DID! @documentAccount
+	version: CommitID! @documentVersion
+}
+
+type QCState @loadModel(id: "kjzl6hvfrbw6c7sdg8o098kxgg5oo63wgavud1xq0686fy9kwawr5akb1op5vhd")
+@createIndex(fields: [{ path: ["spaceId"] }])
+{
+  author: DID! @documentAccount
+	version: CommitID! @documentVersion
+}

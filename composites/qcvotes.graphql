@@ -1,0 +1,27 @@
+type QCSpace 
+@loadModel(id: "kjzl6hvfrbw6c5eb8it147d1emzvibj25ozysyicfi6ox9h5n2099l3q80aqnzo")
+{
+	author: DID! @documentAccount
+	items: [QCItem] @relationFrom(model: "QCItem", property: "spaceId")
+}
+
+type QCItem @loadModel(id: "kjzl6hvfrbw6c8rxbl5p4gol8sj7xnplkdvsd3z8nl6s0j0ey79iw1hqsicjn74")
+{
+  author: DID! @documentAccount
+}
+
+type Vote {
+  itemId: StreamID! @documentReference(model: "QCItem")
+  alloc: Int!
+}
+
+type QCVotes @createModel(
+	accountRelation: LIST, 
+	description: "A single user's votes for QCVotes in a QCSpace."
+)	@createIndex(fields: [{ path: ["spaceId"] }])
+{
+  author: DID! @documentAccount
+	version: CommitID! @documentVersion
+  spaceId: StreamID! @documentReference(model: "QCSpace")
+  votes: [Vote]! @list(maxLength: 10000)
+}

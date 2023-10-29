@@ -1,0 +1,23 @@
+type QCSpace 
+@loadModel(id: "kjzl6hvfrbw6c5eb8it147d1emzvibj25ozysyicfi6ox9h5n2099l3q80aqnzo")
+{
+	author: DID! @documentAccount
+}
+
+type QCItem
+@createModel(
+	accountRelation: LIST, 
+	description: "An item being voted on in a quadratic conviction space."
+)
+@createIndex(fields: [{ path: ["spaceId"] }])
+{
+  author: DID! @documentAccount
+	version: CommitID! @documentVersion
+  spaceId: StreamID! @documentReference(model: "QCSpace")
+	space: QCSpace @relationDocument(property: "spaceId")
+  title: String @string(maxLength: 50)
+  description: String @string(maxLength: 250)
+	amount: Int
+	link: URI
+#	state: QCItemState @relationFrom(model: "QCItemState", property: "itemId")
+}

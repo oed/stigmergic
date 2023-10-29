@@ -1,0 +1,13 @@
+type QCSpace @createModel(
+	accountRelation: LIST, 
+	description: "An object representing a quadratic conviction voting space for a given token"
+) {
+  author: DID! @documentAccount
+	version: CommitID! @documentVersion
+  name: String! @string(maxLength: 50)
+  goal: String! @string(maxLength: 1000)
+  token: String! @string(maxLength: 300)
+  prophets: [DID!] @list(maxLength: 100)
+#	items: [QCItem] @relationFrom(model: "QCItem", property: "spaceId")
+#	state: QCState @relationFrom(model: "QCState", property: "spaceId")
+}
