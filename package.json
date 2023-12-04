@@ -1,6 +1,6 @@
 {
-  "name": "bless club",
-  "homepage": "https://bless.club",
+  "name": "Stigmergic",
+  "homepage": "https://stigmergic.org",
   "version": "0.1.0",
   "license": "MIT",
   "author": "Joel Thorstensson <joel@3box.io>",
@@ -12,10 +12,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/oed/bless-club"
+    "url": "https://github.com/oed/stigmergic"
   },
   "bugs": {
-    "url": "https://github.com/oed/bless-club/issues"
+    "url": "https://github.com/oed/stigmergic/issues"
   },
   "dependencies": {
     "@ceramicnetwork/http-client": "^2.32.0",
@@ -33,6 +33,7 @@
     "react-dom": "^18.2.0",
     "react-icons": "^4.10.1",
     "react-leaflet": "^4.2.1",
+    "react-router-dom": "^6.17.0",
     "sass": "^1.66.1",
     "viem": "^1.12.2",
     "wagmi": "^1.4.2"

@@ -1,5 +1,6 @@
 import Head from "next/head";
 import { useState, useEffect } from "react";
+import { createHashRouter, RouterProvider } from 'react-router-dom'
 
 import Layout from "@components/Layout";
 import Section from "@components/Section";
@@ -14,44 +15,40 @@ import { useComposeDB } from "../hooks/useComposeDB";
 const DESCRIPTION =
   "Bless club is the app where prophets go to share their blessings.";
 
-export default function Home() {
+
+import Home, { homeLoader } from '../routes/home'
+import NewSpace, { newSpaceLoader } from '../routes/newSpace'
+import Space, { spaceLoader } from '../routes/space'
+
+
+export default function Main() {
   const { compose, isAuthenticated } = useComposeDB();
 
-  const [blessings, setBlessings] = useState([]);
-  const [cursor, setCursor] = useState(null);
-  async function loadBlessings() {
-    const { data: { blessingIndex: { 
-      pageInfo: { hasPreviousPage },
-      edges: rawBlessings
-    }}} = await compose.executeQuery(`
-      query{
-        blessingIndex(last:100${cursor ? `, before: "${cursor}"` : ''}){
-          edges{
-            cursor
-            node{
-              to {id}
-              text
-              author {id}
-            }
-          }
-          pageInfo {
-            hasPreviousPage
-          }
-        }
-      }
-    `)
-    if (rawBlessings) {
-      setBlessings(rawBlessings.reverse())
-    } else {
-      setBlessings([])
-    }
+  const [router, setRouter] = useState(null);
+  async function loadRouter() {
+    setRouter(createHashRouter([
+      {
+        path: '/',
+        element: <Home />,
+        loader: homeLoader,
+      },
+      {
+        path: '/new-space',
+        element: <NewSpace />,
+        loader: newSpaceLoader,
+      },
+      {
+        path: '/space/:spaceId',
+        element: <Space />,
+        loader: spaceLoader,
+      },
+    ]))
   }
 
 
   useEffect(() => {
-    loadBlessings()
+    loadRouter()
   }, [])
-
 
 
   return (
@@ -67,17 +64,7 @@ export default function Home() {
           content="/logo.png"
         />
       </Head>
-
-      <Section>
-        <Container>
-          <Bless blessings={blessings} setBlessings={setBlessings} />
-          {
-            blessings.map((blessing) => (
-              <Blessing key={blessing.cursor} blessing={blessing} />
-            ))
-          }
-        </Container>
-      </Section>
+      { router ? <RouterProvider router={router} /> : '' }
     </Layout>
   );
 }
