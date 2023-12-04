@@ -1,6 +1,6 @@
-# GeoJiggle 🤣
+# Stigmergic
 
-GeoJiggle is a decentralized composable collaborative mapping tool designed to offer an interactive and dynamic experience in dealing with geographical information.
+Stigmergic is an application that is used to signal information.
 
 ## ⚡ Quick Deploy
 [![Deploy with Vercel Now](https://zeit.co/button)](https://vercel.com/import/project?template=https://github.com/colbyfayock/next-leaflet-starter) [![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/colbyfayock/next-leaflet-starter)
